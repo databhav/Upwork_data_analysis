@@ -6,14 +6,14 @@ import plotly.express as px
 st.title("UpWork Data Analysis to find out the skills in Demand")
 st.write("**About dataset:** \nThe dataset is curated by scraping publically available job listings on Upwork.com. The data is a sample of about ~9500 jobs listed on upwork.com which made up ~6.25% of total jobs available on upwork at the time of scraping. The dataset can be found at https://www.kaggle.com/datasets/hashiromer/upwork-jobs")
 
-
-df1 = pd.read_csv("Documents/upwork/1_6_2023_general.csv")
-df2 = pd.read_csv("Documents/upwork/1_3_2023_general.csv")
-df3 = pd.read_csv("Documents/upwork/1_1_2023_general.csv")
+# LOADING DATASET
+df1 = pd.read_csv("dataset/1_6_2023_general.csv")
+df2 = pd.read_csv("dataset/1_3_2023_general.csv")
+df3 = pd.read_csv("dataset/1_1_2023_general.csv")
 upwork = pd.concat([df3,df2,df1])
 
 
-###################################################################
+## 1) In Demand services
 st.subheader("1) Most in demand services on the platform")
 st.write("refers to the services that are currently sought after the most by clients on the platform. This information can be useful for service providers who want to focus on offering the most in-demand services to increase their chances of getting hired.")
 
@@ -36,13 +36,15 @@ with st.container():
         st.pyplot(fig)
     with table1:
         st.table(services)
-####################################################################
+        
+## 2) In Demand subservices
 st.write("##")
 st.write("##")
 st.subheader("2) Most in demand subservices of services on Upwork")
 
 service_name = ('Web, Mobile & Software Dev','Accounting & Consulting','Admin Support','Customer Service','Data Science & Analytics','Design & Creative','Engineering & Architecture','IT & Networking','Legal','Sales & Marketing','Translation','Writing')
 
+# Inserting a SELECTBOX for user to choose the subservices data
 subservice = st.selectbox('Select the service to see the subservices graph:',(service_name))
 
 def subservices(subservice):
@@ -69,8 +71,8 @@ with st.container():
 
 
     
-##############################################################
-# Q3) hourly vs fixbudget
+
+## Q3) hourly vs fixbudget ratios
 st.write("##")
 st.write("##")
 st.subheader("3) Fixed budget vs Hourly services ratios preferred by clients based on services")
@@ -92,7 +94,7 @@ ax.set_xticklabels(fixbudget['occupations_category_pref_label'],rotation=90)
 
 st.pyplot(fig3)
 
-###############################################################
+## 4) Average hourly vs fixed budget rates
 st.write("##")
 st.write("##")
 st.subheader("4) Average hourly and fixed budget rates of services in $")
@@ -122,7 +124,7 @@ for i in range(len(hourly_avg['hourly_rate'])):
 st.pyplot(fig4)
 
 
-###################################################################
+## 5) Clients & Country
 st.write("##")
 st.subheader("5) Representation of country with the most number of clients posting for freelancing work")
 st.write("the given world map is an interactive representation of the number of clients who posted job in this 3 months period from every country.")
